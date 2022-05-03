@@ -26,8 +26,45 @@ The following are criteria for a frequency distribution to be a binomial distrib
 ![image](https://user-images.githubusercontent.com/104613195/166250867-46571ef5-f77b-4658-86ce-1c60c52fdfb1.png)
 
 # Program
+```
+# Developed by: Dinesh.S
+# Register Number: 212220230011
 
+import numpy as np
+import math
+import scipy.stats
 
+X=[0,1,2,3,4,5,6]
+f=[13,25,52,68,32,16,4]
+n=6
+N=np.sum(f)
+mean=np.inner(X,f)/N
+p=mean/n
+q=1-p
+P=list(); E=list(); xi=list()
+print("  X P(X=x) Obs.Fr  Ex.Fre   xi ")
+print("----------------------------------")
+for x in range(7):
+    c=math.factorial(n)/(math.factorial(x)*math.factorial(n-x))
+    P.append(c*p**x*q**(n-x))
+    E.append(P[x]*N)
+    xi.append((f[x]-E[x])**2/E[x])
+    print("%2.2f %2.2f  %4.2f   %3.2f  %3.2f"%(x,P[x],f[x],E[x],xi[x]))
+print("----------------------------------")
+cal_val=np.sum(xi)
+print("Calculated value of Chi square is %4.2f"%cal_val)
+tab_val=scipy.stats.chi2.ppf(1-.01, df=n)
+print("Table value of Chi square at 1  level is %4.2f"%tab_val)
+if cal_val<tab_val:
+    print("The given data can be fitted in binomial distribution at 1% LOS")
+else:
+    print("The given data cannot be fitted in binomial distribution at 1% LOS")
+
+```
 
 
 # Results and Output : 
+![image](https://user-images.githubusercontent.com/75235813/166463733-76e1dd78-22bc-4bfb-b6aa-e8e195a40eba.png)
+![image](https://user-images.githubusercontent.com/75235813/166463845-809998b4-2cd9-48e9-905d-6a37e6a8eb79.png)
+
+Thus, a program to fit binomial distribution for the given frequency distribution is implemented.
